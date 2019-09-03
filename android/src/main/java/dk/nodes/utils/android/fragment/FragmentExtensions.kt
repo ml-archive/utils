@@ -1,8 +1,11 @@
 package dk.nodes.utils.android.fragment
 
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import dk.nodes.utils.android.activity.hideKeyboard
 import dk.nodes.utils.android.activity.showKeyboard
+import dk.nodes.utils.android.context.longToast
+import dk.nodes.utils.android.context.shortToast
 
 fun Fragment.hideKeyboard() {
     activity?.hideKeyboard()
@@ -10,4 +13,20 @@ fun Fragment.hideKeyboard() {
 
 fun Fragment.showKeyboard() {
     activity?.showKeyboard()
+}
+
+fun Fragment.shortToast(text: CharSequence) {
+    activity?.shortToast(text)
+}
+
+fun Fragment.shortToast(@StringRes id: Int) {
+    activity?.shortToast(id)
+}
+
+fun Fragment.longToast(text: CharSequence) {
+    activity?.longToast(text)
+}
+
+fun Fragment.longToast(@StringRes id: Int) {
+    activity?.longToast(id)
 }

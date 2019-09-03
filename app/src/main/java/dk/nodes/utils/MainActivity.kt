@@ -3,8 +3,10 @@ package dk.nodes.utils
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import dk.nodes.utils.android.context.shortToast
 import dk.nodes.utils.android.resources.dp
 import dk.nodes.utils.android.view.edittext.addDebouncedTextChangedListener
+import dk.nodes.utils.kotlin.string.without
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,5 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("ResourcesExtensions", "Int.dp = ${2.dp}")
         Log.d("ResourcesExtensions", "Float.dp = ${2f.dp}")
+
+        shortToast("Hello World".without("World").trimEnd())
     }
 }
