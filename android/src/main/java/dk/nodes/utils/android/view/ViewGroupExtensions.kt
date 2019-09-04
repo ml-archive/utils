@@ -12,4 +12,4 @@ fun ViewGroup.inflate(
 
 operator fun ViewGroup.get(pos: Int): View = getChildAt(pos)
 
-val ViewGroup.children: List<View> get() = (0 until childCount).map { getChildAt(it) }
+val ViewGroup.children: List<View> get() = (0 until childCount).map { this[it] }
