@@ -5,7 +5,11 @@ import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import dk.nodes.utils.android.text.setClickableSpan
 
-fun TextView.setTextWithLink(text: String, clickableText: String, block: () -> Unit)  {
+fun TextView.setTextWithLink(
+    text: String,
+    clickableText: String,
+    block: () -> Unit
+) {
     val spannableString = SpannableString(text)
     spannableString.setClickableSpan(clickableText, true, block)
     setText(spannableString)

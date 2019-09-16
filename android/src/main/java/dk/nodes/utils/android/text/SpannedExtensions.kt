@@ -15,7 +15,10 @@ fun String.fromHtml(): Spanned {
 }
 
 
-fun SpannableString.setClickableSpan(link: String, underline: Boolean = true, onClick: () -> Unit) {
+fun SpannableString.setClickableSpan(
+    link: String,
+    underline: Boolean = true,
+    onClick: () -> Unit) {
     val startingPosition = indexOf(link)
     val endingPosition = startingPosition + link.length
     if (startingPosition != -1) {
