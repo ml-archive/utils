@@ -1,18 +1,8 @@
 package dk.nodes.utils.android.text
 
-import android.os.Build
 import android.text.*
 import android.text.style.ClickableSpan
 import android.view.View
-
-fun String.fromHtml(): Spanned {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        return Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
-    } else {
-        @Suppress("DEPRECATION")
-        return Html.fromHtml(this)
-    }
-}
 
 
 fun SpannableString.setClickableSpan(
