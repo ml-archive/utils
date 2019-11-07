@@ -8,34 +8,6 @@ import android.view.ViewOutlineProvider
 import androidx.annotation.Dimension
 import androidx.core.view.doOnLayout
 
-fun View.setVisible() {
-    visibility = View.VISIBLE
-}
-
-fun View.setInvisible() {
-    visibility = View.INVISIBLE
-}
-
-fun View.setGone() {
-    visibility = View.GONE
-}
-
-fun View.setVisibleOrGone(isVisible: Boolean) {
-    visibility = if (isVisible) {
-        View.VISIBLE
-    } else {
-        View.GONE
-    }
-}
-
-fun View.setVisibleOrInvisible(isVisible: Boolean) {
-    visibility = if (isVisible) {
-        View.VISIBLE
-    } else {
-        View.INVISIBLE
-    }
-}
-
 fun View.increaseTouchTarget(@Dimension size: Int) {
     val parent = parent as View
     parent.doOnLayout {
