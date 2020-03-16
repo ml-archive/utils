@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
             Log.d("EditTextExtensions", "onTextChanged()")
         }
 
-        Log.d("ResourcesExtensions", "Int.dp = ${2.dp}")
-        Log.d("ResourcesExtensions", "Float.dp = ${2f.dp}")
+        Log.d("ResourcesExtensions", "Int dp = ${dp(1)}")
+        Log.d("ResourcesExtensions", "Float dp = ${dp(1f)}")
 
         shortToast("Hello World".without("World").trimEnd())
     }
