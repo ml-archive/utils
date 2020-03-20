@@ -1,42 +1,42 @@
 apply plugin: 'signing'
 apply plugin: 'maven-publish'
-apply plugin: 'digital.wup.android-maven-publish'
-apply plugin: 'signing'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': POM_NAME, 'Implementation-Version': VERSION_NAME
+    }
+}
 
 afterEvaluate {
 
-    task androidJavadoc(type: Javadoc) {
-        source = android.sourceSets.main.java.sourceFiles
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-        classpath += configurations.compile
-    }
-
-    task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
-        archiveClassifier.set('javadoc')
-        from androidJavadoc.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
+    task sourcesJar(type: Jar) {
         archiveClassifier.set('sources')
-        from android.sourceSets.main.java.sourceFiles
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar) {
+        archiveClassifier.set('javadoc')
+        from javadoc
     }
 
     publishing {
         publications {
-            utilsAndroid(MavenPublication) {
+            utilsKotlin(MavenPublication) {
 
-                artifact androidSourcesJar
-                artifact androidJavadocJar
-                from components.android
+                artifact sourcesJar
+                artifact javadocJar
+                from components.java
 
                 pom {
                     artifactId = POM_ARTIFACT_ID
                     name = POM_NAME
                     packaging = POM_PACKAGING
-                    groupId = GROUP
                     description = POM_DESCRIPTION
+
+                    groupId = GROUP
                     version = VERSION_NAME
                     url = POM_URL
+
                     inceptionYear = POM_INCEPTION_YEAR
 
                     licenses {
@@ -78,20 +78,12 @@ afterEvaluate {
             }
         }
 
-        if (JavaVersion.current().isJava8Compatible()) {
-            allprojects {
-                tasks.withType(Javadoc) {
-                    options.addStringOption('Xdoclint:none', '-quiet')
-                }
-            }
-        }
-
         signing {
             required {
                 return isSigningRequired()
             }
 
-            sign publishing.publications.utilsAndroid
+            sign publishing.publications.utilsKotlin
         }
     }
 }
