@@ -2,9 +2,25 @@
 
 buildscript {
 
+    // Username & password for Sonatype, stored in gradle.properties
+    final def _OSSRH_USERNAME = System.getenv('NEXUS_USERNAME')
+    final def _OSSRH_PASSWORD = System.getenv('NEXUS_PASSWORD')
+
+    // Artifact settings
+    final def _IS_RELEASE_VERSION = !VERSION_NAME.endsWith("SNAPSHOT")
+
+
     ext {
         kotlin_version = '1.3.50'
         kotlin_coroutines_version = "1.0.1"
+
+        ossrhUsername = _OSSRH_USERNAME
+        ossrhPassword = _OSSRH_PASSWORD
+
+        getPublishRepositoryUrl = {
+            return _IS_RELEASE_VERSION ? RELEASE_REPO_URL : SNAPSHOT_REPO_URL
+        }
+
     }
 
     repositories {
@@ -17,17 +33,47 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.9.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'digital.wup:android-maven-publish:3.6.2'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.21.1"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+
+plugins {
+    id "io.codearte.nexus-staging" version "0.21.0"
+}
+
 allprojects {
+
+    ext."signing.keyId" = System.getenv('keyId')
+    ext."signing.secretKeyRingFile" = System.getenv('secretKeyRingFile')
+    ext."signing.password" = System.getenv('password')
+
     repositories {
         google()
         jcenter()
 
     }
+}
+
+
+static def getRepositoryUsername() {
+    return System.getenv('NEXUS_USERNAME')
+}
+
+static def getRepositoryPassword() {
+    return System.getenv('NEXUS_PASSWORD')
+}
+
+nexusStaging {
+    packageGroup = "dk.nodes"
+    stagingProfileId = "5a414403b5bf75"
+    username = getRepositoryUsername()
+    password = getRepositoryPassword()
+    delayBetweenRetriesInMillis = 30000
 }
 
 task clean(type: Delete) {
