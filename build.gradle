@@ -21,6 +21,10 @@ buildscript {
             return _IS_RELEASE_VERSION ? RELEASE_REPO_URL : SNAPSHOT_REPO_URL
         }
 
+        isSigningRequired = {
+            return _IS_RELEASE_VERSION
+        }
+
     }
 
     repositories {
