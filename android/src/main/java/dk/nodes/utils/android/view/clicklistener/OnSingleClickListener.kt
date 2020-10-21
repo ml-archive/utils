@@ -20,11 +20,11 @@ class OnSingleClickListener : View.OnClickListener {
         onClickListener = View.OnClickListener(listener::invoke)
     }
 
-    override fun onClick(v: View) {
+    override fun onClick(view: View) {
         val currentTimeMillis = System.currentTimeMillis()
         if (currentTimeMillis >= previousClickTimeMillis + DELAY_MILLIS) {
             previousClickTimeMillis = currentTimeMillis
-            onClickListener.onClick(v)
+            onClickListener.onClick(view)
         }
     }
 
